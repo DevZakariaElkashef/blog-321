@@ -24,3 +24,6 @@ Route::get('about', [AboutController::class, 'index'])->name('about');
 Route::get('posts', [PostController::class, 'index'])->name('posts');
 
 Route::get('contact', [ContactController::class, 'index'])->name('contact');
+
+
+Route::view('/home', 'welcome');
