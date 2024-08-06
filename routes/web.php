@@ -26,4 +26,5 @@ Route::get('posts', [PostController::class, 'index'])->name('posts');
 Route::get('contact', [ContactController::class, 'index'])->name('contact');
 
 
+// this home url will go to welcome page
 Route::view('/home', 'welcome');
