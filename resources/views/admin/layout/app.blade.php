@@ -158,16 +158,16 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#"
-                        role="button">
-                        <i class="fas fa-th-large"></i>
-                    </a>
+                    <form action="{{ route('admin.logout') }}" method="post">
+                        @csrf
+                        <button type="submit" class="btn btn-danger btn-flat">Logout</button>
+                    </form>
                 </li>
             </ul>
         </nav>
         <!-- /.navbar -->
 
-      @include('admin.layout.inc.sidebar')
+        @include('admin.layout.inc.sidebar')
 
         @yield('content')
 

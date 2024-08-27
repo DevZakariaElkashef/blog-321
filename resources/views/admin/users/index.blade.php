@@ -23,6 +23,9 @@
         <!-- Main content -->
         <div class="content">
             <div class="container-fluid">
+                @if(session('success'))
+                <div class="text-light bg-success p-2 rounded text-center">{{ session('success') }}</div>
+                @endif
                 <table class="table">
                     <thead class="">
                         <tr>
@@ -33,14 +36,27 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
+                        @foreach ($users as $user)
+                            <tr>
+                                <td>{{ $user->id }}</td>
+                                <td>{{ $user->name }}</td>
+                                <td>{{ $user->email }}</td>
+                                <td>
+                                    <a href="{{ route('users.edit', $user->id) }}" class="btn btn-primary">Eidt</a>
+                                    <a href="#" onclick="$('#deleteUser{{ $user->id }}').submit()" class="btn btn-danger">Delete</a>
+                                    <form class="d-none" id="deleteUser{{ $user->id }}" action="{{ route('users.destroy', $user->id) }}" method="post">
+                                        @method('DELETE')
+                                        @csrf
+                                    </form>
+                                </td>
+                            </tr>
+                        @endforeach
                     </tbody>
                 </table>
+
+                <div class="my-4">
+                    {{ $users->links() }}
+                </div>
                 <!-- /.row -->
             </div><!-- /.container-fluid -->
         </div>

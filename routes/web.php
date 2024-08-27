@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\HomeController as AdminHomeController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Site\AboutController;
@@ -43,11 +44,18 @@ Route::get('contact', [ContactController::class, 'index'])->name('contact');
 |
 */
 
+Route::prefix('admin')->group(function () {
 
-Route::prefix('admin')->group(function() {
+  Route::get('login', [AuthController::class, 'loginPage'])->name('admin.loginPage');
+  Route::get('register', [AuthController::class, 'registerPage'])->name('admin.registerPage');
+  Route::post('loginStore', [AuthController::class, 'login'])->name('admin.login');
+  Route::post('registerStore', [AuthController::class, 'register'])->name('admin.register');
+  Route::post('logout', [AuthController::class, 'logout'])->name('admin.logout');
+});
+
+
+Route::prefix('admin')->middleware('auth')->group(function () {
 
   Route::get('/home', [AdminHomeController::class, 'index'])->name('admin.home');
   Route::resource('users', UserController::class);
-
 });
-
